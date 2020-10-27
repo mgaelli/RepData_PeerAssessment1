@@ -446,7 +446,7 @@ medianStepsFixed &lt;- median(stepsPerDayFixed$totalSteps)</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
-<p>First, we recreate the dataframe congaing average number of steps per interval, based on the “fixedData” frame, and then create a new factor variable “dayType” to indicate if the date is a weekday or a weekend day.</p>
+<p>First, we recreate the dataframe congaing average number of steps per interval, based on the “fixedData” frame, and then create a new factor variable “dayType” to indicate if the date is a weekday or a weekend day. Then create a graph showing the weekend data on top and the weekday data on the bottom.</p>
 <pre class="r"><code>dailyStepsFixed &lt;- fixedData %&gt;% mutate(dayType = factor(weekdays(date) %in% c(&quot;Saturday&quot;,&quot;Sunday&quot;), levels=c(TRUE,FALSE), labels=c(&quot;Weekend&quot;,&quot;Weekday&quot;))) %&gt;% group_by(time,dayType) %&gt;% summarize(steps=mean(steps)) </code></pre>
 <pre><code>## `summarise()` regrouping output by &#39;time&#39; (override with `.groups` argument)</code></pre>
 <pre class="r"><code>dailyStepsFixed %&gt;% ggplot(aes(time,steps)) + geom_line(size=1.1,aes(color=dayType)) + 

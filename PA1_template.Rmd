@@ -88,7 +88,7 @@ The mean number of steps after removing NAs is `r format(meanStepsFixed,scientif
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-First, we recreate the dataframe congaing average number of steps per interval, based on the "fixedData" frame, and then create a new factor variable "dayType" to indicate if the date is a weekday or a weekend day.
+First, we recreate the dataframe congaing average number of steps per interval, based on the "fixedData" frame, and then create a new factor variable "dayType" to indicate if the date is a weekday or a weekend day. Then create a graph showing the weekend data on top and the weekday data on the bottom.
 
 ```{r weekend}
 dailyStepsFixed <- fixedData %>% mutate(dayType = factor(weekdays(date) %in% c("Saturday","Sunday"), levels=c(TRUE,FALSE), labels=c("Weekend","Weekday"))) %>% group_by(time,dayType) %>% summarize(steps=mean(steps)) 
@@ -97,3 +97,5 @@ dailyStepsFixed %>% ggplot(aes(time,steps)) + geom_line(size=1.1,aes(color=dayTy
   scale_x_datetime(breaks=breaks_width("2 hours"),labels=date_format("%H:%M",tz="America/Chicago")) +
   ggtitle("Average Daily Activity Pattern") + xlab("Time of Day") + ylab("Number of Steps")
 ```
+
+
